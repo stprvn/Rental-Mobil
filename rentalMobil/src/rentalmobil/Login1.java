@@ -5,6 +5,7 @@
  */
 package rentalmobil;
 
+import Function.DatabaseConnection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -14,6 +15,7 @@ import javax.swing.JOptionPane;
  * @author USER
  */
 public class Login1 extends javax.swing.JFrame {
+    DatabaseConnection datacon = new DatabaseConnection();
     private Statement sttmt = null;
     String user;
     String pass;
@@ -204,29 +206,7 @@ public class Login1 extends javax.swing.JFrame {
 
     private void OKbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKbuttonActionPerformed
         // TODO add your handling code here:
-        try {
-        boolean koneksi = new db_coba.DB().connect("localhost", "root");
-        ResultSet rs = db_coba.DB.login("SELECT * FROM login");
-       
-            while (rs.next()) {
-                user = rs.getString("username");
-                pass = rs.getString("password");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Proses Gagal");
-        }
-        try{
-        String userPassword = String.valueOf(password.getPassword());
-        if ((username.getText().equals(user))&&(userPassword.equals(pass))) {
-            JOptionPane.showMessageDialog(null, "Login Berhasil");
-            dispose();
-            new Menu_Utama("tambah").setVisible(true);
-        }else {
-            JOptionPane.showMessageDialog(null, "Login Gagal");
-        }
-        }catch(Exception e){
-            System.out.println(e);
-        }
+    
     }//GEN-LAST:event_OKbuttonActionPerformed
 
     /**

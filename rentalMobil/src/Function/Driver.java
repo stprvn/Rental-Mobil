@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rentalmobil;
+package Function;
 
 /**
  *
  * @author Parveen
  */
-public class RentalMobil {
+public class Driver {
 
     /**
      * @param args the command line arguments
