@@ -26,7 +26,7 @@ public class ListArray {
         ResultSet rs;
         try{
             st=con.createStatement();
-            rs=st.executeQuery("SELECT * FROM loginvoter");
+            rs=st.executeQuery("SELECT * FROM member");
             Member member;
             while(rs.next()){
                 member = new Member(rs.getString("nama_member"), rs.getString("nik"), rs.getString("username"), rs.getString("password"));

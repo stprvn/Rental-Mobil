@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 public class DatabaseConnection {
     String host,username,pass;
     public DatabaseConnection(){
-        this.host="jdbc:mysql://localhost:3306/e-vote_demo";
+        this.host="jdbc:mysql://localhost:3306/rental_mobil";
         this.username="root";
         this.pass="";
     }
