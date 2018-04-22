@@ -8,6 +8,7 @@ package Function;
 import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class DatabaseConnection {
     String host,username,pass;
+    Statement st=null;
     public DatabaseConnection(){
         this.host="jdbc:mysql://localhost:3306/rental_mobil";
         this.username="root";
@@ -33,6 +35,19 @@ public class DatabaseConnection {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Database not connected!");
             return null;
+        }
+    }
+    
+    public void executeQuery(String query){
+        try{
+            Connection con=getConnection();
+            st=con.createStatement();
+            if(st.executeUpdate(query)==1){
+                JOptionPane.showMessageDialog(null, "Sukses!");
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failed!");
         }
     }
 }
