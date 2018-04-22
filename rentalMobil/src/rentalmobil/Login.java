@@ -52,6 +52,7 @@ public class Login extends javax.swing.JFrame {
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(102, 255, 0));
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(228, 241, 254));
@@ -145,7 +146,7 @@ public class Login extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel5);
-        jPanel5.setBounds(278, 0, 270, 410);
+        jPanel5.setBounds(270, 0, 270, 410);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
