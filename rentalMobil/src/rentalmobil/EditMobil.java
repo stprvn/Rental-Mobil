@@ -27,6 +27,9 @@ public class EditMobil extends javax.swing.JFrame {
      * Creates new form EditMobil
      */
     DataMobil mobilForm;
+    private String nama,nopol;
+    String harga;
+    private int id;
     public String query=null;
     public EditMobil() {
         initComponents();
@@ -39,6 +42,26 @@ public class EditMobil extends javax.swing.JFrame {
         initComponents();
         setDefault();
         setLocationRelativeTo(null);
+    }
+    
+    public EditMobil(DataMobil mobilForm, String nama,String imgPath,String nopol, int harga,int id){
+        this.mobilForm=mobilForm;
+        this.id=id;
+        this.nama=nama;
+        this.imgPath=imgPath;
+        this.nopol=nopol;
+        this.harga=Integer.toString(harga);
+        initComponents();
+        setAll();
+        setLocationRelativeTo(null);
+    }
+    void setAll(){
+        jTextFieldNama.setText(nama);
+        jTextFieldHarga.setText(harga);
+        jTextFieldNopol2.setText(nopol);
+        jTextFieldPath.setText(imgPath);
+        jLabel4.setIcon(ResizeImage(imgPath,null));
+        jButtonAct.setText("Apply");
     }
     void setDefault(){
         String imgPath="D:/GitHub/Rental-Mobil/rentalMobil/src/icon/DefaultMobil.png";
@@ -79,8 +102,6 @@ public class EditMobil extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextFieldNopol1 = new javax.swing.JTextField();
-        jTextFieldNopol3 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -135,18 +156,6 @@ public class EditMobil extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Harga");
 
-        jTextFieldNopol1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNopol1ActionPerformed(evt);
-            }
-        });
-
-        jTextFieldNopol3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNopol3ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -155,10 +164,11 @@ public class EditMobil extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldNama, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldNama, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel2)
+                            .addComponent(jTextFieldNopol2))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(32, 32, 32)
@@ -177,15 +187,8 @@ public class EditMobil extends javax.swing.JFrame {
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(10, 10, 10)
-                                    .addComponent(jTextFieldNopol1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jTextFieldNopol2)))
-                            .addGap(18, 18, 18)
-                            .addComponent(jTextFieldNopol3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addComponent(jTextFieldHarga, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -212,10 +215,7 @@ public class EditMobil extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldNopol2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldNopol1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldNopol3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextFieldNopol2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -274,24 +274,18 @@ public class EditMobil extends javax.swing.JFrame {
     private void jButtonActActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActActionPerformed
         if("Save".equals(jButtonAct.getText())){
             query="INSERT INTO mobil(nama_mobil,gambar,no_polisi,harga) values (?,?,?,?)";
-            executeSql(query);
-            System.out.println(imgPath);
+            
+        }else{
+            query="UPDATE mobil set nama_mobil=?,gambar=?,no_polisi=?,harga=? WHERE id_mobil="+id;
         }
+        executeSql(query);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonActActionPerformed
-
-    private void jTextFieldNopol1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNopol1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNopol1ActionPerformed
-
-    private void jTextFieldNopol3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNopol3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNopol3ActionPerformed
     void executeSql(String query){
         Connection con = new DatabaseConnection().getConnection();
         PreparedStatement ps=null;
         try{
-            ps=con.prepareStatement("INSERT INTO mobil(nama_mobil,gambar,no_polisi,harga) VALUES (?,?,?,?)");
+            ps=con.prepareStatement(query);
             ps.setString(1, jTextFieldNama.getText());
             ps.setString(2, imgPath);
             ps.setString(3, jTextFieldNopol2.getText());
@@ -353,9 +347,7 @@ public class EditMobil extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldHarga;
     private javax.swing.JTextField jTextFieldNama;
-    private javax.swing.JTextField jTextFieldNopol1;
     private javax.swing.JTextField jTextFieldNopol2;
-    private javax.swing.JTextField jTextFieldNopol3;
     private javax.swing.JTextField jTextFieldPath;
     // End of variables declaration//GEN-END:variables
 }

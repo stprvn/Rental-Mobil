@@ -77,7 +77,7 @@ public class DataMobil extends javax.swing.JFrame {
             MyImage=new ImageIcon(pic);
         }
         Image img=MyImage.getImage();
-        Image newImg=img.getScaledInstance(150, 120, Image.SCALE_SMOOTH);
+        Image newImg=img.getScaledInstance(jLabel2.getWidth(), jLabel2.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon image=new ImageIcon(newImg);
         return image;
         
@@ -88,15 +88,15 @@ public class DataMobil extends javax.swing.JFrame {
         ArrayList<Mobil> list = new ArrayList<>();
         list = listArray.getListDataMobil();
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        
         model.setRowCount(0);
-        Object[] row = new Object[5];
+        Object[] row = new Object[4];
         System.out.println(list.size());
         for(int i=0;i<list.size();i++){
             row[0]=list.get(i).getId();
             row[1]=list.get(i).getNama();
             row[2]=list.get(i).getNoPolisi();
-            row[3]=ResizeImage(list.get(i).getImage(),null);
-            row[4]=list.get(i).getHarga();
+            row[3]=list.get(i).getHarga();
             model.addRow(row);
         }
         
@@ -124,6 +124,8 @@ public class DataMobil extends javax.swing.JFrame {
         jButtonEdit = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -151,26 +153,17 @@ public class DataMobil extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "ID Mobil", "Deskripsi", "No. Polisi", "Gambar", "Harga"
+                "ID Mobil", "Deskripsi", "No. Polisi", "Harga"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -182,6 +175,11 @@ public class DataMobil extends javax.swing.JFrame {
             }
         });
         jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTable1FocusGained(evt);
+            }
+        });
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -213,10 +211,17 @@ public class DataMobil extends javax.swing.JFrame {
         });
 
         jButtonEdit.setText("Edit");
+        jButtonEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditActionPerformed(evt);
+            }
+        });
 
         jButtonDelete.setText("Delete");
 
-        jLabel2.setText("jLabel2");
+        jLabel3.setText("Selected :");
+
+        jLabel4.setText("jLabel4");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -245,6 +250,10 @@ public class DataMobil extends javax.swing.JFrame {
                                 .addGap(0, 268, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -255,7 +264,11 @@ public class DataMobil extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel4)))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -297,13 +310,34 @@ public class DataMobil extends javax.swing.JFrame {
         new EditMobil(this).setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonAddActionPerformed
-
+    String imgPath;
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-                ArrayList<Mobil> list = new ArrayList<>();
+               // TODO add your handling code here:
+               selectRow=jTable1.getSelectedRow();
+        ArrayList<Mobil> list = new ArrayList<>();
         list = listArray.getListDataMobil();
         System.out.println(list.get(jTable1.getSelectedRow()).getImage());
-        jLabel2.setIcon(ResizeImage(list.get(jTable1.getSelectedRow()).getImage(), null));        // TODO add your handling code here:
+        jLabel2.setIcon(ResizeImage(list.get(jTable1.getSelectedRow()).getImage(), null)); 
+        imgPath=list.get(jTable1.getSelectedRow()).getImage();
+        jLabel4.setText(Integer.toString(selectRow));
+        
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable1FocusGained
+        // TODO add your handling code here:       
+     
+    }//GEN-LAST:event_jTable1FocusGained
+
+    private void jButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditActionPerformed
+        selectRow=jTable1.getSelectedRow();
+        int id= Integer.parseInt((String) jTable1.getValueAt(selectRow, 0));
+        String nama = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 1);
+        String nopol= (String) jTable1.getValueAt(jTable1.getSelectedRow(), 2);
+        int harga= (int) jTable1.getValueAt(selectRow, 3);
+        new EditMobil(this, nama, imgPath, nopol, harga,1).setVisible(true);
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEditActionPerformed
 
     /**
      * @param args the command line arguments
@@ -349,6 +383,8 @@ public class DataMobil extends javax.swing.JFrame {
     private javax.swing.JButton jButtonLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
