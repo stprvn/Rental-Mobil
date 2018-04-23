@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2018 at 05:06 PM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Generation Time: 23 Apr 2018 pada 18.15
+-- Versi Server: 10.1.30-MariaDB
+-- PHP Version: 5.6.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,11 +25,11 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Struktur dari tabel `admin`
 --
 
 CREATE TABLE `admin` (
-  `nama` char(40) NOT NULL,
+  `nama_admin` varchar(40) NOT NULL,
   `username` varchar(25) NOT NULL,
   `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -37,7 +37,7 @@ CREATE TABLE `admin` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `driver`
+-- Struktur dari tabel `driver`
 --
 
 CREATE TABLE `driver` (
@@ -50,32 +50,34 @@ CREATE TABLE `driver` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `member`
+-- Struktur dari tabel `member`
 --
 
 CREATE TABLE `member` (
   `username` char(12) NOT NULL,
   `password` char(12) NOT NULL,
-  `nama_member` varchar(16) NOT NULL,
+  `nama_member` varchar(20) NOT NULL,
   `nik` char(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mobil`
+-- Struktur dari tabel `mobil`
 --
 
 CREATE TABLE `mobil` (
-  `no_polisi` char(8) NOT NULL,
+  `id_mobil` int(3) NOT NULL,
   `nama_mobil` varchar(20) NOT NULL,
-  `transmisi` char(12) NOT NULL
+  `gambar` varchar(500) NOT NULL,
+  `no_polisi` char(8) NOT NULL,
+  `harga` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pengembalian`
+-- Struktur dari tabel `pengembalian`
 --
 
 CREATE TABLE `pengembalian` (
@@ -88,14 +90,14 @@ CREATE TABLE `pengembalian` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `penyewaan`
+-- Struktur dari tabel `penyewaan`
 --
 
 CREATE TABLE `penyewaan` (
   `id_penyewaan` int(5) NOT NULL,
   `tanggal_sewa` date NOT NULL,
   `username_penyewa` char(10) NOT NULL,
-  `id_driver` char(4) DEFAULT NULL,
+  `id_driver` int(4) DEFAULT NULL,
   `harga` int(10) NOT NULL,
   `lama_sewa` int(3) NOT NULL,
   `verifikasi` tinyint(1) DEFAULT '0'
@@ -104,6 +106,12 @@ CREATE TABLE `penyewaan` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`username`);
 
 --
 -- Indexes for table `driver`
@@ -121,29 +129,32 @@ ALTER TABLE `member`
 -- Indexes for table `mobil`
 --
 ALTER TABLE `mobil`
-  ADD PRIMARY KEY (`no_polisi`);
+  ADD PRIMARY KEY (`id_mobil`);
 
 --
 -- Indexes for table `pengembalian`
 --
 ALTER TABLE `pengembalian`
-  ADD PRIMARY KEY (`kode_bayar`);
+  ADD PRIMARY KEY (`kode_bayar`),
+  ADD KEY `id_penyewaan` (`id_penyewaan`);
 
 --
 -- Indexes for table `penyewaan`
 --
 ALTER TABLE `penyewaan`
-  ADD PRIMARY KEY (`id_penyewaan`);
+  ADD PRIMARY KEY (`id_penyewaan`),
+  ADD KEY `id_driver` (`id_driver`),
+  ADD KEY `username_penyewa` (`username_penyewa`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `driver`
+-- AUTO_INCREMENT for table `mobil`
 --
-ALTER TABLE `driver`
-  MODIFY `id_driver` int(4) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `mobil`
+  MODIFY `id_mobil` int(3) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pengembalian`
@@ -156,6 +167,23 @@ ALTER TABLE `pengembalian`
 --
 ALTER TABLE `penyewaan`
   MODIFY `id_penyewaan` int(5) NOT NULL AUTO_INCREMENT;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `pengembalian`
+--
+ALTER TABLE `pengembalian`
+  ADD CONSTRAINT `pengembalian_ibfk_1` FOREIGN KEY (`id_penyewaan`) REFERENCES `penyewaan` (`id_penyewaan`);
+
+--
+-- Ketidakleluasaan untuk tabel `penyewaan`
+--
+ALTER TABLE `penyewaan`
+  ADD CONSTRAINT `penyewaan_ibfk_1` FOREIGN KEY (`id_driver`) REFERENCES `driver` (`id_driver`),
+  ADD CONSTRAINT `penyewaan_ibfk_2` FOREIGN KEY (`username_penyewa`) REFERENCES `member` (`username`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
