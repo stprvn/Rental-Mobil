@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 22 Apr 2018 pada 12.01
+-- Generation Time: 23 Apr 2018 pada 12.15
 -- Versi Server: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -70,6 +70,7 @@ CREATE TABLE `member` (
 --
 
 CREATE TABLE `mobil` (
+  `id_mobil` int(5) NOT NULL,
   `no_polisi` char(8) NOT NULL,
   `nama_mobil` varchar(20) NOT NULL,
   `transmisi` char(12) NOT NULL
@@ -123,7 +124,7 @@ ALTER TABLE `member`
 -- Indexes for table `mobil`
 --
 ALTER TABLE `mobil`
-  ADD PRIMARY KEY (`no_polisi`);
+  ADD PRIMARY KEY (`id_mobil`);
 
 --
 -- Indexes for table `pembayaran`
@@ -146,6 +147,12 @@ ALTER TABLE `penyewaan`
 --
 ALTER TABLE `driver`
   MODIFY `id_driver` int(4) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `mobil`
+--
+ALTER TABLE `mobil`
+  MODIFY `id_mobil` int(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
