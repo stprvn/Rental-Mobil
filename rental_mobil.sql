@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 23 Apr 2018 pada 18.15
+-- Generation Time: 24 Apr 2018 pada 01.23
 -- Versi Server: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -34,6 +34,14 @@ CREATE TABLE `admin` (
   `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `admin`
+--
+
+INSERT INTO `admin` (`nama_admin`, `username`, `password`) VALUES
+('St Parveen Putra', 'stphns', 'stphns'),
+('M Taufiq Hidayat', 'taufiq', 'taufiq');
+
 -- --------------------------------------------------------
 
 --
@@ -43,9 +51,15 @@ CREATE TABLE `admin` (
 CREATE TABLE `driver` (
   `id_driver` int(4) NOT NULL,
   `nama_driver` varchar(20) NOT NULL,
-  `nik_driver` char(16) NOT NULL,
-  `spesialisasi` char(12) NOT NULL
+  `nik_driver` char(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `driver`
+--
+
+INSERT INTO `driver` (`id_driver`, `nama_driver`, `nik_driver`) VALUES
+(7001, 'Jajang', '12133133433309');
 
 -- --------------------------------------------------------
 
@@ -59,6 +73,13 @@ CREATE TABLE `member` (
   `nama_member` varchar(20) NOT NULL,
   `nik` char(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `member`
+--
+
+INSERT INTO `member` (`username`, `password`, `nama_member`, `nik`) VALUES
+('baginda', 'baginda123', 'Baginda Suprata', '1210001407199000');
 
 -- --------------------------------------------------------
 
