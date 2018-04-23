@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 22 Apr 2018 pada 12.01
--- Versi Server: 10.1.30-MariaDB
--- PHP Version: 5.6.33
+-- Generation Time: Apr 23, 2018 at 05:06 PM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `driver`
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `nama` char(40) NOT NULL,
+  `username` varchar(25) NOT NULL,
+  `password` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `driver`
 --
 
 CREATE TABLE `driver` (
@@ -38,22 +50,7 @@ CREATE TABLE `driver` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `history`
---
-
-CREATE TABLE `history` (
-  `id_penyewaan` int(5) NOT NULL,
-  `tanggal_sewa` date NOT NULL,
-  `tanggal_balik` date DEFAULT NULL,
-  `lama_sewa` int(3) NOT NULL,
-  `harga_sewa` int(10) NOT NULL,
-  `biaya_denda` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `member`
+-- Table structure for table `member`
 --
 
 CREATE TABLE `member` (
@@ -66,7 +63,7 @@ CREATE TABLE `member` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `mobil`
+-- Table structure for table `mobil`
 --
 
 CREATE TABLE `mobil` (
@@ -78,20 +75,20 @@ CREATE TABLE `mobil` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pembayaran`
+-- Table structure for table `pengembalian`
 --
 
-CREATE TABLE `pembayaran` (
+CREATE TABLE `pengembalian` (
   `kode_bayar` int(7) NOT NULL,
   `id_penyewaan` int(5) NOT NULL,
   `harga` int(10) NOT NULL,
-  `status` char(10) NOT NULL
+  `status` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `penyewaan`
+-- Table structure for table `penyewaan`
 --
 
 CREATE TABLE `penyewaan` (
@@ -100,7 +97,8 @@ CREATE TABLE `penyewaan` (
   `username_penyewa` char(10) NOT NULL,
   `id_driver` char(4) DEFAULT NULL,
   `harga` int(10) NOT NULL,
-  `lama_sewa` int(3) NOT NULL
+  `lama_sewa` int(3) NOT NULL,
+  `verifikasi` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -126,9 +124,9 @@ ALTER TABLE `mobil`
   ADD PRIMARY KEY (`no_polisi`);
 
 --
--- Indexes for table `pembayaran`
+-- Indexes for table `pengembalian`
 --
-ALTER TABLE `pembayaran`
+ALTER TABLE `pengembalian`
   ADD PRIMARY KEY (`kode_bayar`);
 
 --
@@ -148,9 +146,9 @@ ALTER TABLE `driver`
   MODIFY `id_driver` int(4) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `pembayaran`
+-- AUTO_INCREMENT for table `pengembalian`
 --
-ALTER TABLE `pembayaran`
+ALTER TABLE `pengembalian`
   MODIFY `kode_bayar` int(7) NOT NULL AUTO_INCREMENT;
 
 --
