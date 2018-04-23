@@ -13,12 +13,16 @@ import javax.swing.JOptionPane;
  * @author mtauf
  */
 public class Login extends javax.swing.JFrame {
-
+    DataMobil mobilForm;
     /**
      * Creates new form Login
      */
     String username,password;
     public Login() {
+        initComponents();
+    }
+    public Login(DataMobil f){
+        this.mobilForm=f;
         initComponents();
     }
 
@@ -209,10 +213,16 @@ public class Login extends javax.swing.JFrame {
         username=jTextField1.getText();
         password=jPasswordField1.getText();
         CheckLogin check = new CheckLogin(username, password);
-        if(check.checkLogin()){
+        if(check.checkLoginMember()){
             JOptionPane.showMessageDialog(this, "Berhasil!");
         }else{
+            if(check.checkLoginAdmin()){
+                JOptionPane.showMessageDialog(this, "Login admin!");
+                mobilForm.setPrivillage('a', true);
+                dispose();
+            }else{
             JOptionPane.showMessageDialog(this, "Failed!");
+            }
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1MouseClicked

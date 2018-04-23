@@ -17,10 +17,21 @@ public class CheckLogin {
         this.username=username;
         this.password=password;
     }
-    public boolean checkLogin(){
+    public boolean checkLoginMember(){
         ListArray listArray=new ListArray();
         ArrayList<Member> list = new ArrayList<>();
         list=listArray.getListDataMembers();
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).getUsername().equals(username) && list.get(i).getPassword().equals(password)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean checkLoginAdmin(){
+        ListArray listArray=new ListArray();
+        ArrayList<Admin> list = new ArrayList<>();
+        list=listArray.getListDataAdmin();
         for(int i=0;i<list.size();i++){
             if(list.get(i).getUsername().equals(username) && list.get(i).getPassword().equals(password)){
                 return true;

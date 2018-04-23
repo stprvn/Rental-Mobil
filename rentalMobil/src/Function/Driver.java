@@ -5,6 +5,7 @@
  */
 package Function;
 
+import rentalmobil.DataMobil;
 import rentalmobil.Login;
 
 /**
@@ -17,7 +18,7 @@ public class Driver {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new Login().setVisible(true);
+        new DataMobil(false, 'm').setVisible(true);
 // TODO code application logic here
     }
     

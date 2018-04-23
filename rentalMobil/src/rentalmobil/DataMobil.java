@@ -5,6 +5,15 @@
  */
 package rentalmobil;
 
+import Function.ListArray;
+import Function.Mobil;
+import java.awt.Image;
+import java.util.ArrayList;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Parveen
@@ -14,10 +23,87 @@ public class DataMobil extends javax.swing.JFrame {
     /**
      * Creates new form DataMobil
      */
+    public boolean login=false;
+    public char privilage='m';
+    private int selectRow=-1;
+    ListArray listArray = new ListArray();
     public DataMobil() {
         initComponents();
+        showData();
     }
+    public DataMobil(boolean login, char privilage){
+        initComponents();
+        this.login=login;
+        this.privilage=privilage;
 
+        showPrivilage();
+        showData();
+    }
+    public void showPrivilage(){
+        //jika admin
+        if(login&&privilage=='a'){
+            jButtonLogin.setText("logout");
+            jButtonAdd.setVisible(true);
+            jButtonEdit.setVisible(true);
+            jButtonDelete.setVisible(true);
+            jButtonBook.setEnabled(false);
+        }//jika member & login
+        else if(login&&privilage=='m'){
+            jButtonLogin.setText("logout");
+            jButtonAdd.setVisible(false);
+            jButtonEdit.setVisible(false);
+            jButtonDelete.setVisible(false);
+            jButtonBook.setEnabled(true);
+        }//jika tidak login
+        else{
+            jButtonLogin.setText("Login");
+            jButtonAdd.setVisible(false);
+            jButtonEdit.setVisible(false);
+            jButtonDelete.setVisible(false);
+            jButtonBook.setEnabled(true);
+        }
+    }
+    public void setPrivillage(char privilage, boolean login){
+        this.privilage=privilage;
+        this.login=login;
+        showPrivilage();
+    }
+    //Image
+    public ImageIcon ResizeImage (String ImagePath, byte[] pic){
+        ImageIcon MyImage=null;
+        if(ImagePath!=null){
+            MyImage=new ImageIcon(ImagePath);
+        }else{
+            MyImage=new ImageIcon(pic);
+        }
+        Image img=MyImage.getImage();
+        Image newImg=img.getScaledInstance(150, 120, Image.SCALE_SMOOTH);
+        ImageIcon image=new ImageIcon(newImg);
+        return image;
+        
+    }
+    //show data di table
+    void showData(){
+        System.out.println("show");
+        ArrayList<Mobil> list = new ArrayList<>();
+        list = listArray.getListDataMobil();
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        model.setRowCount(0);
+        Object[] row = new Object[5];
+        System.out.println(list.size());
+        for(int i=0;i<list.size();i++){
+            row[0]=list.get(i).getId();
+            row[1]=list.get(i).getNama();
+            row[2]=list.get(i).getNoPolisi();
+            row[3]=ResizeImage(list.get(i).getImage(),null);
+            row[4]=list.get(i).getHarga();
+            model.addRow(row);
+        }
+        
+    }
+//    public Class getColumnClass(){
+//        return Icon.class;
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,6 +118,12 @@ public class DataMobil extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButtonBook = new javax.swing.JButton();
+        jButtonLogin = new javax.swing.JButton();
+        jButtonAdd = new javax.swing.JButton();
+        jButtonEdit = new javax.swing.JButton();
+        jButtonDelete = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,10 +136,10 @@ public class DataMobil extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(317, 317, 317)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -71,14 +163,14 @@ public class DataMobil extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "ID Mobil", "Gambar", "Deskripsi", "No. Polisi", "Transmisi"
+                "ID Mobil", "Deskripsi", "No. Polisi", "Gambar", "Harga"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Byte.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, true, true, true
+                true, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -90,43 +182,128 @@ public class DataMobil extends javax.swing.JFrame {
             }
         });
         jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setHeaderValue("ID Mobil");
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setHeaderValue("Gambar");
-            jTable1.getColumnModel().getColumn(2).setHeaderValue("Deskripsi");
-            jTable1.getColumnModel().getColumn(3).setHeaderValue("No. Polisi");
-            jTable1.getColumnModel().getColumn(4).setHeaderValue("Transmisi");
-        }
 
         jButton1.setText("Keluar");
+
+        jButtonBook.setText("Book");
+        jButtonBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBookActionPerformed(evt);
+            }
+        });
+
+        jButtonLogin.setText("Login");
+        jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLoginActionPerformed(evt);
+            }
+        });
+
+        jButtonAdd.setText("Add");
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddActionPerformed(evt);
+            }
+        });
+
+        jButtonEdit.setText("Edit");
+
+        jButtonDelete.setText("Delete");
+
+        jLabel2.setText("jLabel2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonLogin)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButtonBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(186, 186, 186)
+                                .addComponent(jButtonAdd)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonEdit)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonDelete)
+                                .addGap(0, 268, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addGap(0, 16, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonBook)
+                        .addComponent(jButtonLogin)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAdd)
+                    .addComponent(jButtonEdit)
+                    .addComponent(jButtonDelete))
+                .addGap(11, 11, 11))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBookActionPerformed
+        selectRow=jTable1.getSelectedRow();
+        if(selectRow>-1){
+            if(!login){
+                new Login().setVisible(true);
+                JOptionPane.showMessageDialog(this, "Login First!");
+            }else{
+                new FormPenyewaan().setVisible(true);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Pilih Mobil!");
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonBookActionPerformed
+
+    private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
+        new Login(this).setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonLoginActionPerformed
+
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
+        new EditMobil(this).setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAddActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+                ArrayList<Mobil> list = new ArrayList<>();
+        list = listArray.getListDataMobil();
+        System.out.println(list.get(jTable1.getSelectedRow()).getImage());
+        jLabel2.setIcon(ResizeImage(list.get(jTable1.getSelectedRow()).getImage(), null));        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -158,14 +335,20 @@ public class DataMobil extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DataMobil().setVisible(true);
+                new DataMobil(true,'a').setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonBook;
+    private javax.swing.JButton jButtonDelete;
+    private javax.swing.JButton jButtonEdit;
+    private javax.swing.JButton jButtonLogin;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
