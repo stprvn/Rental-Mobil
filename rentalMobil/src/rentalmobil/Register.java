@@ -237,6 +237,7 @@ public class Register extends javax.swing.JFrame {
                         + "'"+jTextFieldFullName.getText()+"',"
                         + "'"+jTextFieldNIK.getText()+"')";
                 datacon.executeQuery(query);
+                dispose();
             }
         }
         // TODO add your handling code here:

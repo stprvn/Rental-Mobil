@@ -215,9 +215,7 @@ public class Login extends javax.swing.JFrame {
         CheckLogin check = new CheckLogin(username, password);
         if(check.checkLoginMember()){
             JOptionPane.showMessageDialog(this, "Berhasil!");
-            BerandaMember bmember=new BerandaMember();
-            bmember.setVisible(true);
-            bmember.setLocationRelativeTo(null);
+            mobilForm.setPrivillage('m', true);
             dispose();
         }else{
             if(check.checkLoginAdmin()){
