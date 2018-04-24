@@ -5,9 +5,13 @@
  */
 package rentalmobil;
 
+import Function.DatabaseConnection;
 import Function.ListArray;
 import Function.Mobil;
 import java.awt.Image;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -218,6 +222,11 @@ public class DataMobil extends javax.swing.JFrame {
         });
 
         jButtonDelete.setText("Delete");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Selected :");
 
@@ -338,6 +347,23 @@ public class DataMobil extends javax.swing.JFrame {
         
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonEditActionPerformed
+
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        selectRow=jTable1.getSelectedRow();
+        String query="DELETE FROM mobil WHERE id_mobil="+jTable1.getValueAt(selectRow, 0);
+        Connection con = new DatabaseConnection().getConnection();
+        Statement st = null;
+        try{
+           st=con.createStatement();
+           if(st.executeUpdate(query)==1){
+               showData();
+               JOptionPane.showMessageDialog(this, "Delete berhasil");
+           }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     /**
      * @param args the command line arguments
