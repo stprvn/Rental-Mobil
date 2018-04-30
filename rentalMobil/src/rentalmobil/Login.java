@@ -37,11 +37,11 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        jButtonlogin = new javax.swing.JButton();
+        jButtoncance = new javax.swing.JButton();
+        jTextFieldusername = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabelregisterhere = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -59,29 +59,34 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Alegreya", 0, 36)); // NOI18N
         jLabel1.setText("Sign In");
 
-        jButton1.setText("Login");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonlogin.setText("Login");
+        jButtonlogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                jButtonloginMouseClicked(evt);
+            }
+        });
+        jButtonlogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButtonloginKeyPressed(evt);
             }
         });
 
-        jButton2.setText("Cancel");
+        jButtoncance.setText("Cancel");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldusername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextFieldusernameActionPerformed(evt);
             }
         });
 
         jLabel2.setText("Not a member yet?");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 2, 13)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 153, 255));
-        jLabel3.setText("Register Here");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabelregisterhere.setFont(new java.awt.Font("Tahoma", 2, 13)); // NOI18N
+        jLabelregisterhere.setForeground(new java.awt.Color(51, 153, 255));
+        jLabelregisterhere.setText("Register Here");
+        jLabelregisterhere.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+                jLabelregisterhereMouseClicked(evt);
             }
         });
 
@@ -100,17 +105,17 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jButton1)
+                            .addComponent(jButtonlogin)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton2))
+                            .addComponent(jButtoncance))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(5, 5, 5)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3))
-                            .addComponent(jTextField1))
+                                .addComponent(jLabelregisterhere))
+                            .addComponent(jTextFieldusername))
                         .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -127,19 +132,19 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldusername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButtonlogin)
+                    .addComponent(jButtoncance))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabelregisterhere))
                 .addGap(36, 36, 36))
         );
 
@@ -203,14 +208,14 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+    private void jLabelregisterhereMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelregisterhereMouseClicked
         new Register(this).setVisible(true);
         this.setEnabled(false);
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel3MouseClicked
+    }//GEN-LAST:event_jLabelregisterhereMouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        username=jTextField1.getText();
+    private void jButtonloginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonloginMouseClicked
+        username=jTextFieldusername.getText();
         password=jPasswordField1.getText();
         CheckLogin check = new CheckLogin(username, password);
         if(check.checkLoginMember()){
@@ -230,11 +235,33 @@ public class Login extends javax.swing.JFrame {
             }
         }
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_jButtonloginMouseClicked
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextFieldusernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldusernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextFieldusernameActionPerformed
+
+    private void jButtonloginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButtonloginKeyPressed
+        // TODO add your handling code here:
+        username=jTextFieldusername.getText();
+        password=jPasswordField1.getText();
+        CheckLogin check = new CheckLogin(username, password);
+        if(check.checkLoginMember()){
+            JOptionPane.showMessageDialog(this, "Berhasil!");
+            mobilForm.setPrivillage('m', true);
+            dispose();
+        }else{
+            if(check.checkLoginAdmin()){
+                JOptionPane.showMessageDialog(this, "Login admin!");
+                mobilForm.setPrivillage('a', true);
+                BerandaAdmin badmin = new BerandaAdmin();
+                badmin.setVisible(true);
+                badmin.setLocationRelativeTo(null);
+                dispose();
+            }else{
+            JOptionPane.showMessageDialog(this, "Failed!");
+            }
+    }//GEN-LAST:event_jButtonloginKeyPressed
 
     /**
      * @param args the command line arguments
@@ -270,20 +297,20 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtoncance;
+    private javax.swing.JButton jButtonlogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelregisterhere;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextFieldusername;
     // End of variables declaration//GEN-END:variables
 }

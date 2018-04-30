@@ -29,8 +29,8 @@ public class ListArray {
             rs=st.executeQuery("SELECT * FROM member");
             Member member;
             while(rs.next()){
-                member = new Member(rs.getString("nama_member"), rs.getString("nik"), rs.getString("username"), rs.getString("password"));
-                listArrayDataLogin.add(member);
+              //  member = new Member(rs.getInt("id_member"),rs.getString("nama_member"),rs.getString("username"), rs.getString("password"));
+            //    listArrayDataLogin.add(member);
             }
         }catch(SQLException e){
             e.printStackTrace();
